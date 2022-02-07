@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using System.Diagnostics;
+using System.Linq;
 
 namespace ConsoleApp1
 {
@@ -28,7 +29,7 @@ namespace ConsoleApp1
             int isummtime = 0;
             long timeСompetition = 0;
             Shooter[] Shooters = new Shooter[13];
-            for (int i = 0; i < 13; i++)            // инициализируем массив стрелков   
+            for (int i = 0; i < Shooters.Length; i++)            // инициализируем массив стрелков   
             {
                 Shooters[i] = new Shooter(i + 1);
             }
@@ -40,9 +41,10 @@ namespace ConsoleApp1
             stopwatch.Start(); //альтернатива второй переменной для подсчета времени
             StartСompetition(ref Shooters, ref Beavis, ref Butthead, ref iPositions, ref iSumTimeEvent);
             stopwatch.Stop(); // затраченное время на мероприятие получим из данных диагностики
+            
             // Теперь, когда мы собрали массив с суммарным временем по каждом событию, расчитаем 
-            foreach (int i in iSumTimeEvent)
-                isummtime += i;
+             
+                isummtime= iSumTimeEvent.Sum();
 
             timeСompetition = stopwatch.ElapsedMilliseconds / 1000;
             TimeSpan tsSummTimeEvent = TimeSpan.FromSeconds(isummtime);
@@ -192,7 +194,7 @@ namespace ConsoleApp1
         // Поиск свободной позиции для стрелка
         static bool FindFreePositionFirst(ref int[] Positions, Shooter Shoot)
         {
-            for (int i = 0; i < 6; i++)
+            for (int i = 0; i < Positions.Length; i++)
             {
 
                 if (Positions[i] == 0)
@@ -213,7 +215,7 @@ namespace ConsoleApp1
         // Провека наличия всех свободных мест
         static bool CheckLockPosition(ref int[] Positions)
         {
-
+            
             foreach (int Pos in Positions)
                 if (Pos == 1)
                     return true;
@@ -226,13 +228,13 @@ namespace ConsoleApp1
             switch (Status)
             {
                 //сообщения для стрелков
-                case 2: return "Занял направление!"; break;
-                case 3: return "К стрельбе готов!"; break;
-                case 4: return "Стрельбу окончил!"; break;
+                case 2: return "Занял направление!"; 
+                case 3: return "К стрельбе готов!"; 
+                case 4: return "Стрельбу окончил!"; 
                 // для инструкторов
-                case 10: return "Подготовиться к стрельбе!"; break;
-                case 11: return "Произвести стрельбу!"; break;
-                default: return ""; break;
+                case 10: return "Подготовиться к стрельбе!"; 
+                case 11: return "Произвести стрельбу!"; 
+                default: return ""; 
             }
         }
         // проверяем соотвествие позиций инструктора и стрелка, выполняем событие по подготовке к стрельбе
@@ -287,7 +289,7 @@ namespace ConsoleApp1
             //в зависимости от текущего события подбираем рандомное число
             switch (EventNum)
             {
-                case 0: Delay = RandomNum.Next(3, 10); break; // Занял направление
+               case 0: Delay = RandomNum.Next(3, 10); break; // Занял направление
                 case 1: Delay = RandomNum.Next(2, 6); break; // Подготовиться к стрельбе
                 case 2: Delay = RandomNum.Next(1, 4); break; // К стрельбе готов
                 case 3: Delay = RandomNum.Next(1, 2); break; // Произвести стрельбу
