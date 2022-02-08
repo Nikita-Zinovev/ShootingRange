@@ -180,12 +180,12 @@ namespace ConsoleApp1
         {
             int BeavisPos = Beavis.GetPosition();
             int ButtheadPos = Butthead.GetPosition();
-            if (BeavisPos != 5)
+            if (BeavisPos != Positions.Length-1)
                 Beavis.PutPosition(BeavisPos + 2);
             else
                 Beavis.PutPosition(1);
 
-            if (ButtheadPos != 6)
+            if (ButtheadPos != Positions.Length)
                 Butthead.PutPosition(ButtheadPos + 2);
             else
                 Butthead.PutPosition(2);
@@ -289,7 +289,7 @@ namespace ConsoleApp1
             //в зависимости от текущего события подбираем рандомное число
             switch (EventNum)
             {
-               case 0: Delay = RandomNum.Next(3, 10); break; // Занял направление
+                case 0: Delay = RandomNum.Next(3, 10); break; // Занял направление
                 case 1: Delay = RandomNum.Next(2, 6); break; // Подготовиться к стрельбе
                 case 2: Delay = RandomNum.Next(1, 4); break; // К стрельбе готов
                 case 3: Delay = RandomNum.Next(1, 2); break; // Произвести стрельбу
